@@ -1,5 +1,5 @@
 ﻿
-namespace Communication.Abstractions
+namespace PingPong.Communication.Abstractions
 {
     interface IWriter<T>
     {

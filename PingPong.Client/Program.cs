@@ -16,7 +16,7 @@ namespace PingPong.Client
 
             if (numericalPort)
             {
-                var client = new ClientSocket(maxDataSize);
+                var client = new TcpClientSocket(maxDataSize);
 
                 var connectionInfo = new ConnectionInfo
                 {

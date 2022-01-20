@@ -5,38 +5,33 @@ using PingPong.Communication.Factories;
 
 namespace PingPong.Communication
 {
-    public class ServerSocket : ServerSocketBase
+    public class TcpListenerSocket : ServerSocketBase
     {
-        private Socket _wrappedServer;
+        private TcpListener _wrappedServer;
 
-        private ClientSocketFactory _clientFactory;
+        private TcpClientSocketFactory _clientFactory;
 
         public bool KeepRunning;
 
-        public ServerSocket(string ip, int port, int maxDataSize, ClientSocketFactory clientFactory)
+        public TcpListenerSocket(string ip, int port, int maxDataSize, TcpClientSocketFactory clientFactory)
         {
             Ip = ip;
             Port = port;
             MaxDataSize = maxDataSize;
-            _wrappedServer = new Socket(SocketType.Stream, ProtocolType.Tcp);
+            _wrappedServer = new TcpListener(new IPEndPoint(IPAddress.Parse(ip), port));
             _clientFactory = clientFactory;
             KeepRunning = true;
         }
 
         public override ClientSocketBase Accept()
         {
-            var socket = _wrappedServer.Accept();
+            var socket = _wrappedServer.AcceptTcpClient();
             return _clientFactory.Create(socket, MaxDataSize);
-        }
-
-        public void Bind()
-        {
-            _wrappedServer.Bind(new IPEndPoint(IPAddress.Parse(Ip), Port));
         }
 
         public override void StartListening(int clientsAmount)
         {
-            _wrappedServer.Listen(clientsAmount);
+            _wrappedServer.Start(clientsAmount);
         }
 
         public void HandleClient(ClientSocketBase client)

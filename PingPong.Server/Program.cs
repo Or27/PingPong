@@ -17,10 +17,9 @@ namespace PingPong.Server
 
             if (numericalPort)
             {
-                var clientsFactory = new ClientSocketFactory();
-                var server = new ServerSocket(ipAddress, port, maxDataSize, clientsFactory);
+                var clientsFactory = new TcpClientSocketFactory();
+                var server = new TcpListenerSocket(ipAddress, port, maxDataSize, clientsFactory);
 
-                server.Bind();
                 server.StartListening(listenAmount);
 
                 while (server.KeepRunning)

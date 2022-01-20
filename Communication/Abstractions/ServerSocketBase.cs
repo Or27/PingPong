@@ -10,7 +10,5 @@ namespace PingPong.Communication.Abstractions
         public abstract ClientSocketBase Accept();
 
         public abstract void StartListening(int clientsAmount);
-
-        public abstract void Bind();
     }
 }

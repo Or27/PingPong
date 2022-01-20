@@ -49,8 +49,11 @@
     <Compile Include="ClientSocket.cs" />
     <Compile Include="DTOs\ConnectionInfo.cs" />
     <Compile Include="Factories\ClientSocketFactory.cs" />
+    <Compile Include="Factories\TcpClientSocketFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerSocket.cs" />
+    <Compile Include="TcpClientSocket.cs" />
+    <Compile Include="TcpListenerServer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

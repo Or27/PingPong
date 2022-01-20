@@ -1,7 +1,11 @@
 ﻿
 namespace Communication.Abstractions
 {
-    public class SocketBase : 
+    public abstract class SocketBase : IReader<byte[]>, IWriter<byte[]>
     {
+        public abstract byte[] Read();
+
+        public abstract void Write(byte[] data);
+        
     }
 }

@@ -56,5 +56,11 @@
     <None Include="log4net.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Communication\PingPong.Communication.csproj">
+      <Project>{296956a6-72c8-4372-9157-c4a08ad769ce}</Project>
+      <Name>PingPong.Communication</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

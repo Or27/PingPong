@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using System.Configuration;
+using PingPong.Communication;
+using PingPong.Communication.Factories;
 
 namespace PingPong.Server
 {
@@ -10,9 +9,26 @@ namespace PingPong.Server
     {
         static void Main(string[] args)
         {
-            if (args.Length > 0)
+            string ipAddress = ConfigurationManager.AppSettings.Get("ip");
+            var maxDataSize = int.Parse(ConfigurationManager.AppSettings.Get("maxDataSize"));
+            var listenAmount = int.Parse(ConfigurationManager.AppSettings.Get("listenAmount"));
 
-            Console.WriteLine(args[0]);
+            bool numericalPort = int.TryParse(args[0], out int port);
+
+            if (numericalPort)
+            {
+                var clientsFactory = new ClientSocketFactory();
+                var server = new ServerSocket(ipAddress, port, maxDataSize, clientsFactory);
+
+                server.Bind();
+                server.StartListening(listenAmount);
+
+                while (server.KeepRunning)
+                {
+                    var client = server.Accept();
+                    Task.Run(() => server.HandleClient(client));
+                }
+            }
         }
     }
 }

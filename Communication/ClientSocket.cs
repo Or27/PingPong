@@ -2,9 +2,9 @@
 using PingPong.Communication.Abstractions;
 using PingPong.Communication.DTOs;
 
-namespace Communication
+namespace PingPong.Communication
 {
-    class ClientSocket : ClientSocketBase
+    public class ClientSocket : ClientSocketBase
     {
         private Socket _wrappedClient;
 
@@ -12,6 +12,12 @@ namespace Communication
         {
             MaxDataSize = maxDataSize;
             _wrappedClient = new Socket(SocketType.Stream, ProtocolType.Tcp);
+        }
+
+        public ClientSocket(Socket wrappedClient, int maxDataSize)
+        {
+            MaxDataSize = maxDataSize;
+            _wrappedClient = wrappedClient;
         }
 
         public override void Connect(ConnectionInfo info)
@@ -22,9 +28,12 @@ namespace Communication
         public override byte[] Read()
         {
             byte[] receivedData = new byte[MaxDataSize];
-            _wrappedClient.Receive(receivedData);
+            int bytesAmount = _wrappedClient.Receive(receivedData);
 
-            return receivedData;
+            byte[] compatibleLengthData = new byte[bytesAmount];
+            System.Array.Copy(receivedData, compatibleLengthData, bytesAmount);
+
+            return compatibleLengthData;
         }
 
         public override void Write(byte[] data)

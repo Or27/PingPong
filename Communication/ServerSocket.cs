@@ -1,38 +1,51 @@
-﻿using System.Net.Sockets;
+﻿using System.Net;
+using System.Net.Sockets;
 using PingPong.Communication.Abstractions;
+using PingPong.Communication.Factories;
 
 namespace PingPong.Communication
 {
-    class ServerSocket : ServerSocketBase
+    public class ServerSocket : ServerSocketBase
     {
         private Socket _wrappedServer;
+
         private ClientSocketFactory _clientFactory;
 
-        public ServerSocket(int maxDataSize, ClientSocketFactory clientFactory)
+        public bool KeepRunning;
+
+        public ServerSocket(string ip, int port, int maxDataSize, ClientSocketFactory clientFactory)
         {
+            Ip = ip;
+            Port = port;
             MaxDataSize = maxDataSize;
             _wrappedServer = new Socket(SocketType.Stream, ProtocolType.Tcp);
             _clientFactory = clientFactory;
+            KeepRunning = true;
         }
 
         public override ClientSocketBase Accept()
         {
-            return _wrappedServer.Accept();
+            var socket = _wrappedServer.Accept();
+            return _clientFactory.Create(socket, MaxDataSize);
         }
 
-        public override byte[] Read()
+        public override void Bind()
         {
-            throw new System.NotImplementedException();
+            _wrappedServer.Bind(new IPEndPoint(IPAddress.Parse(Ip), Port));
         }
 
         public override void StartListening(int clientsAmount)
         {
-            throw new System.NotImplementedException();
+            _wrappedServer.Listen(clientsAmount);
         }
 
-        public override void Write(byte[] data)
+        public void HandleClient(ClientSocketBase client)
         {
-            throw new System.NotImplementedException();
+            while (KeepRunning)
+            {
+                byte[] recievedData = client.Read();
+                client.Write(recievedData);
+            }
         }
     }
 }

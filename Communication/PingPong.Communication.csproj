@@ -41,10 +41,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstractions\ClientSocketBase.cs" />
     <Compile Include="Abstractions\IReader.cs" />
     <Compile Include="Abstractions\IWriter.cs" />
+    <Compile Include="Abstractions\ServerSocketBase.cs" />
     <Compile Include="Abstractions\SocketBase.cs" />
+    <Compile Include="ClientSocket.cs" />
+    <Compile Include="DTOs\ConnectionInfo.cs" />
+    <Compile Include="Factories\ClientSocketFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServerSocket.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -2,9 +2,10 @@
 
 namespace PingPong.Communication.DTOs
 {
-    class ConnectionInfo
+    public class ConnectionInfo
     {
         public string Ip;
+
         public int Port;
     }
 }

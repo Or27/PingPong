@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using log4net;
-using log4net.Config;
+using System.Configuration;
+using PingPong.Communication;
+using PingPong.Communication.DTOs;
 
 namespace PingPong.Client
 {
@@ -12,8 +9,33 @@ namespace PingPong.Client
     {
         static void Main(string[] args)
         {
-            var port = args[0];
-            args[0]
+            var maxDataSize = int.Parse(ConfigurationManager.AppSettings.Get("maxDataSize"));
+
+            string ipAddress = args[0];
+            bool numericalPort = int.TryParse(args[1], out int port);
+
+            if (numericalPort)
+            {
+                var client = new ClientSocket(maxDataSize);
+
+                var connectionInfo = new ConnectionInfo
+                {
+                    Ip = ipAddress,
+                    Port = port
+                };
+
+                client.Connect(connectionInfo);
+                var keepRunning = true;
+
+                while (keepRunning)
+                {
+                    string userInput = Console.ReadLine();
+                    client.Write(System.Text.Encoding.ASCII.GetBytes(userInput));
+
+                    string receivedData = System.Text.Encoding.ASCII.GetString(client.Read());
+                    Console.WriteLine(receivedData);
+                }
+            }
         }
     }
 }

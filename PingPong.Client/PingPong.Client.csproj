@@ -61,6 +61,10 @@
       <Project>{296956a6-72c8-4372-9157-c4a08ad769ce}</Project>
       <Name>PingPong.Communication</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PingPong.Core\PingPong.Core.csproj">
+      <Project>{0a98d7e6-4a76-4b48-be50-4aea25d650aa}</Project>
+      <Name>PingPong.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Configuration;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using PingPong.Communication;
 using PingPong.Communication.DTOs;
+using PingPong.Core;
 
 namespace PingPong.Client
 {
@@ -10,6 +13,8 @@ namespace PingPong.Client
         static void Main(string[] args)
         {
             var maxDataSize = int.Parse(ConfigurationManager.AppSettings.Get("maxDataSize"));
+            var nameQuestion = ConfigurationManager.AppSettings.Get("nameQuestion");
+            var ageQuestion = ConfigurationManager.AppSettings.Get("ageQuestion");
 
             string ipAddress = args[0];
             bool numericalPort = int.TryParse(args[1], out int port);
@@ -27,13 +32,28 @@ namespace PingPong.Client
                 client.Connect(connectionInfo);
                 var keepRunning = true;
 
+                var formatter = new BinaryFormatter();
+
                 while (keepRunning)
                 {
-                    string userInput = Console.ReadLine();
-                    client.Write(System.Text.Encoding.ASCII.GetBytes(userInput));
+                    Console.WriteLine(nameQuestion);
+                    string name = Console.ReadLine();
 
-                    string receivedData = System.Text.Encoding.ASCII.GetString(client.Read());
-                    Console.WriteLine(receivedData);
+                    Console.WriteLine(ageQuestion);
+                    bool numericalAge = int.TryParse(Console.ReadLine(), out int age);
+
+                    if (numericalAge)
+                    {
+                        MemoryStream stream = new MemoryStream();
+                        formatter.Serialize(stream, new Person(name, age));
+                        client.Write(stream.ToArray());
+
+                        byte[] receivedData = client.Read();
+                        stream = new MemoryStream(receivedData);
+
+                        var receivedPerson = (Person)formatter.Deserialize(stream);
+                        Console.WriteLine(receivedPerson.ToString());
+                    }
                 }
             }
         }

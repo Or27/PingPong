@@ -8,8 +8,9 @@ namespace Communication
     {
         private Socket _wrappedClient;
 
-        public ClientSocket()
+        public ClientSocket(int maxDataSize)
         {
+            MaxDataSize = maxDataSize;
             _wrappedClient = new Socket(SocketType.Stream, ProtocolType.Tcp);
         }
 
@@ -20,7 +21,7 @@ namespace Communication
 
         public override byte[] Read()
         {
-            byte[] receivedData = new byte[100];
+            byte[] receivedData = new byte[MaxDataSize];
             _wrappedClient.Receive(receivedData);
 
             return receivedData;

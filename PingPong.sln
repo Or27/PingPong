@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.28010.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PingPong", "PingPong\PingPong.csproj", "{D23622E6-877B-4C6E-ACBF-F04136E983EA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "UI\UI.csproj", "{C98401CA-ABFF-488B-9C72-7A10181B0F1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Communication", "Communication\Communication.csproj", "{296956A6-72C8-4372-9157-C4A08AD769CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{D23622E6-877B-4C6E-ACBF-F04136E983EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D23622E6-877B-4C6E-ACBF-F04136E983EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D23622E6-877B-4C6E-ACBF-F04136E983EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C98401CA-ABFF-488B-9C72-7A10181B0F1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C98401CA-ABFF-488B-9C72-7A10181B0F1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C98401CA-ABFF-488B-9C72-7A10181B0F1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C98401CA-ABFF-488B-9C72-7A10181B0F1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{296956A6-72C8-4372-9157-C4A08AD769CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{296956A6-72C8-4372-9157-C4A08AD769CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{296956A6-72C8-4372-9157-C4A08AD769CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{296956A6-72C8-4372-9157-C4A08AD769CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

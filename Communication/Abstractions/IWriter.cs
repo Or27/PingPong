@@ -1,7 +1,8 @@
 ﻿
 namespace Communication.Abstractions
 {
-    public class SocketBase : 
+    interface IWriter<T>
     {
+        void Write(T data);
     }
 }

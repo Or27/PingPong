@@ -1,4 +1,4 @@
-﻿
+﻿using PingPong.Communication.DTOs;
 
 namespace PingPong.Communication.Abstractions
 {
